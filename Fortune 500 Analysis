@@ -1,0 +1,32 @@
+ Project #2: Fortune 500 Analysis
+
+
+# What is the maximum number of weeks for maternity leave within all companies?
+
+SELECT MAX(maternity_leave_weeks), company_name
+FROM fortune_companies
+GROUP BY company_name;
+
+# Which companies are in the Technology or Retail industries?
+
+SELECT industry, company_name
+FROM fortune_companies
+WHERE industry="Technology"
+OR industry="Retail"
+ORDER BY company_name DESC;
+
+# Which companies have more than 100,000 employees?
+
+SELECT company_name, AVG(employees) AS average_employees
+FROM fortune_companies
+GROUP BY company_name
+HAVING average_employees>=100000;
+
+# Which companies put an emphasis on employee wellness?
+
+SELECT company_name,
+CASE WHEN paid_time_off_days>=20 THEN 'employee_wellness_friendly'
+WHEN paid_time_off_days>=15 THEN 'acceptable'
+ELSE 'avoid'
+END AS employee_wellness
+FROM fortune_companies;
